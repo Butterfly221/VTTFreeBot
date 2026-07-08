@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+
+# Environment
+.env
+
+# IDE
+.vscode/
+.idea/
+.continue/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Temp
+temp/
+*.log
+
+# Model cache
+model_cache/
+
+# Audio test files
+*.wav
+*.oga
+*.mp3
+
+# Agent files (personal instructions, not for repo)
+AGENTS.md
+GUARDRAILS.md
+PLAN.md
