@@ -10,10 +10,17 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    """Конфигурация Voice2Text Bot."""
+    """Конфигурация VTTFreeBot."""
+
+    # Режим запуска
+    RUN_MODE: Literal["telegram", "vk", "desktop"] = "desktop"
 
     # Telegram
     BOT_TOKEN: str = ""
+
+    # VK
+    VK_TOKEN: str = ""
+    VK_GROUP_ID: int = 0
 
     # ASR модель
     ASR_MODEL_SIZE: Literal["tiny", "base", "small"] = "base"
@@ -28,11 +35,10 @@ class Settings(BaseSettings):
     USER_RATE_LIMIT_PER_MINUTE: int = 5
 
     # Очередь
-    QUEUE_TIMEOUT_SECONDS: int = 600  # таймаут обработки одной задачи
-
+    QUEUE_TIMEOUT_SECONDS: int = 600
     # Пути
-    TEMP_DIR: Path = Path("/dev/shm")  # tmpfs по умолчанию, для Windows переопределить в .env
-    WAV_SAMPLE_RATE: int = 16000  # 16 kHz для Whisper
+    TEMP_DIR: Path = Path("/dev/shm")
+    WAV_SAMPLE_RATE: int = 16000
 
     model_config = SettingsConfigDict(
         env_file=".env",
