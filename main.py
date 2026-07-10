@@ -1,4 +1,5 @@
-"""Точка входа в приложение.
+"""
+Точка входа в приложение.
 
 Инициализация бота, загрузка ASR-модели, запуск очереди и polling.
 """
@@ -36,11 +37,12 @@ async def main() -> None:
         return
 
     # Инициализация бота
-    bot = Bot(
+    tg_bot = Bot(
         token=settings.BOT_TOKEN,
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
     dp = Dispatcher()
+    queue = None
 
     # Регистрация health-check
     @dp.message(CommandStart())
@@ -52,15 +54,15 @@ async def main() -> None:
             "⚙️ Бот работает полностью локально, данные не сохраняются."
         )
 
-    # Загрузка ASR-модели
-    from asr.engine import TranscriptionError, whisper_engine
+        # Загрузка ASR-модели
+    from asr.engine import whisper_engine
 
     logger.info("Загрузка ASR-модели: %s...", settings.ASR_MODEL_SIZE)
     try:
         whisper_engine.initialize()
-    except TranscriptionError as exc:
-        logger.error("Ошибка загрузки модели: %s", exc)
-        await bot.session.close()
+    except Exception as exc:
+        logger.error("Ошибка загрузки модели: %s", type(exc).__name__)
+        await tg_bot.session.close()
         return
 
     # Запуск очереди транскрибации
@@ -85,12 +87,13 @@ async def main() -> None:
     # Запуск polling
     try:
         logger.info("Бот запущен и готов к работе")
-        await dp.start_polling(bot)
+        await dp.start_polling(tg_bot)
     except Exception as exc:
         logger.error("Критическая ошибка: %s", type(exc).__name__)
     finally:
-        await queue.stop()
-        await bot.session.close()
+        if queue is not None:
+            await queue.stop()
+        await tg_bot.session.close()
 
 
 if __name__ == "__main__":
