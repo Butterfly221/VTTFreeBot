@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     QUEUE_TIMEOUT_SECONDS: int = 600  # таймаут обработки одной задачи
 
     # Пути
-    TEMP_DIR: Path = Path("/dev/shm")  # tmpfs по умолчанию
+    TEMP_DIR: Path = Path("/dev/shm")  # tmpfs по умолчанию, для Windows переопределить в .env
     WAV_SAMPLE_RATE: int = 16000  # 16 kHz для Whisper
 
     model_config = SettingsConfigDict(
@@ -42,3 +42,4 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
