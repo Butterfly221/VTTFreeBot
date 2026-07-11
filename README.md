@@ -412,9 +412,24 @@ pytest tests/ -v
 
 ## 📬 Контакты и поддержка
 
-Для обратной связи:
-@Butterfly2212 - telegram
-https://vk.com/butterfly221 - vk
+Есть вопросы, предложения или нашли баг? Пишите — я открыт к обратной связи!
+
+<div align="left">
+  <table>
+    <tr>
+      <td>
+        <a href="https://t.me/Butterfly2212">
+          <b>📩 Telegram</b>
+        </a>
+      </td>
+      <td>
+        <a href="https://vk.com/butterfly221">
+          <b>💬 ВКонтакте</b>
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
 
 <div align="center">
   <h3>🎤 Превращаем голос в текст — конфиденциально, локально, бесплатно</h3>
