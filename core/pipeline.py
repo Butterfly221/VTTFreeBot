@@ -80,7 +80,7 @@ async def voice_to_text(
             raise PipelineError(str(exc)) from exc
 
         # Проверяем длительность
-        duration = _get_duration(wav_path)
+        duration = await _get_duration(wav_path)
         if duration > settings.MAX_AUDIO_DURATION_SECONDS:
             _try_remove(wav_path)
             raise AudioTooLongError(
@@ -127,3 +127,4 @@ async def _get_duration(wav_path: Path) -> float:
 
     loop = asyncio.get_running_loop()
     return await loop.run_in_executor(None, _get_duration_sync, wav_path)
+
