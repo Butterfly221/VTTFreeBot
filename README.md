@@ -8,7 +8,7 @@
   </p>
 
   <p>
-    <a href="#-архитектура">Архитектура</a> •
+    <a href="#-Архитектурные-решения">Архитектура</a> •
     <a href="#-ключевые-инженерные-решения">Инженерные решения</a> •
     <a href="#-поддерживаемые-интерфейсы">Поддерживаемые интерфейсы</a> •
     <a href="#-быстрый-старт">Быстрый старт</a> •
@@ -50,8 +50,9 @@
 
 ---
 
-## 🏗️ Архитектура
+## Архитектурные решения
 
+---
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                        VTTFreeBot                                   │
@@ -81,17 +82,17 @@
 ### 🔄 Поток обработки запроса
 
 ```
-User sends voice  →  TempAudioFile (uuid4, /dev/shm)
-                          ↓
-                   ffmpeg: ogg/opus/mp3 → 16kHz mono wav
-                          ↓
-                   Queue worker (asyncio.Queue, 1 worker)
-                          ↓
-                   faster-whisper (base, int8)
-                          ↓
-                   Text → response to user
-                          ↓
-                   Files deleted (guaranteed in try/finally)
+Пользователь отправляет аудио  →  TempAudioFile (uuid4, /dev/shm)
+                                                ↓
+                                        ffmpeg: ogg/opus/mp3 → 16kHz mono wav
+                                                ↓
+                                        Queue worker (asyncio.Queue, 1 worker)
+                                                ↓
+                                        faster-whisper (base, int8)
+                                                ↓
+                                        Text → Ответ пользователю
+                                                ↓
+                                        Файлы удаляются (гарантированно в try/finally)
 ```
 
 ### 📦 Структура модулей
